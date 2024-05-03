@@ -30,7 +30,7 @@ app.post('/roommate', async (req, res) => {
 app.get('/roommates', async (req, res) => {
     try {
         const roommates = await obtenerRoommates();
-        console.log(roommates);
+        //console.log(roommates);
         res.status(201).json(roommates);    
     } catch (error) {
         console.error(error);

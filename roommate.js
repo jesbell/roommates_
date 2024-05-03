@@ -13,7 +13,6 @@ async function agregarNuevoRoommate() {
             recibe: 0
         };
         const roommatesJSON = JSON.parse(fs.readFileSync('apis/roommates.json', "utf8"));
-        console.log(roommatesJSON);
         const roommates = roommatesJSON.roommates;
         roommates.push(nuevoRoommate);
         fs.writeFileSync('apis/roommates.json', JSON.stringify(roommatesJSON, null, 2)); 
