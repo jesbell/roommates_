@@ -24,5 +24,14 @@ async function agregarNuevoRoommate() {
     }
 }
 
+function obtenerRoommates() {
+    try {
+        const data = fs.readFileSync('apis/roommates.json');
+        return JSON.parse(data);
+    } catch (error) {
+        console.log(error);
+        return [];
+    }
+}
 
-export { agregarNuevoRoommate };
+export { agregarNuevoRoommate, obtenerRoommates };

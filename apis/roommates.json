@@ -1,14 +1,20 @@
 {
   "roommates": [
     {
-      "id": "94a230",
-      "nombre": "Javier Álvarez",
+      "id": "214c5f",
+      "nombre": "Rodney Lambert",
       "debe": 0,
       "recibe": 0
     },
     {
-      "id": "bd6322",
-      "nombre": "نیایش یاسمی",
+      "id": "361aa7",
+      "nombre": "Jason Leclercq",
+      "debe": 0,
+      "recibe": 0
+    },
+    {
+      "id": "82b641",
+      "nombre": "Constance West",
       "debe": 0,
       "recibe": 0
     }
