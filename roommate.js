@@ -33,4 +33,24 @@ function obtenerRoommates() {
     }
 }
 
-export { agregarNuevoRoommate, obtenerRoommates };
+async function agregarNuevoGasto(roommateId, roommate, descripcion, monto) {
+    try {
+        const nuevoGasto = {
+            id: uuidv4().slice(30),
+            roommateId: roommateId,
+            roommate: roommate,
+            descripcion: descripcion,
+            monto: monto
+        };
+        const gastosJSON = JSON.parse(fs.readFileSync('apis/gastos.json', "utf8"));
+        const gastos = gastosJSON.gastos;
+        gastos.push(nuevoGasto);
+        fs.writeFileSync('apis/gastos.json', JSON.stringify(gastosJSON, null, 2)); 
+        return nuevoGasto;
+    } catch (error) {
+        console.error('Error al agregar nuevo roommate:', error);
+        throw new Error('Error al obtener nuevo roommate:', error);
+    }
+}
+
+export { agregarNuevoRoommate, obtenerRoommates, agregarNuevoGasto };

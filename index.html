@@ -45,16 +45,13 @@
               id="roommatesSelect"
             ></select>
             <h6>Descripción</h6>
-            <textarea class="form-control w-50 mb-2" id="descripcion">
-Articulos de limpieza</textarea
-            >
+            <textarea class="form-control w-50 mb-2" id="descripcion"></textarea>
 
             <h6>Monto:</h6>
             <input
               class="form-control w-50 mb-2"
               id="monto"
               type="number"
-              value="15000"
             />
           </div>
           <div class="d-block my-1">
@@ -105,8 +102,7 @@ Articulos de limpieza</textarea
                   id="roommatesSelectModal"
                 ></select>
                 <h6>Descripción</h6>
-                <textarea class="form-control w-50 mb-2" id="descripcionModal">
-    Articulos de limpieza</textarea
+                <textarea class="form-control w-50 mb-2" id="descripcionModal"></textarea
                 >
 
                 <h6>Monto:</h6>
@@ -114,7 +110,6 @@ Articulos de limpieza</textarea
                   class="form-control w-50 mb-2"
                   id="montoModal"
                   type="number"
-                  value="20000"
                 />
               </div>
               <div class="d-block my-1">
@@ -161,13 +156,13 @@ Articulos de limpieza</textarea
       const imprimir = async () => {
         try {
           await getRoommates();
-          await getGastos();
+          //await getGastos();
           $("#roommates").html("");
           $("#roommatesSelect").html("");
           $("#roommatesSelectModal").html("");
           roommates.forEach((r) => {
             $("#roommatesSelect").append(`
-          <option value="${r.nombre}">${r.nombre}</option>
+          <option value="${r.id}">${r.nombre}</option>
           `);
             $("#roommatesSelectModal").append(`
           <option value="${r.nombre}">${r.nombre}</option>
@@ -208,17 +203,24 @@ Articulos de limpieza</textarea
       };
 
       const agregarGasto = async () => {
-        const roommateSelected = $("#roommatesSelect").val();
+        const roommateId = $("#roommatesSelect").val();
+        const roommate = $("#roommatesSelect option:selected").text();
         const descripcion = $("#descripcion").val();
         const monto = Number($("#monto").val());
+        console.log(roommate);
         await fetch("http://localhost:3000/gasto", {
           method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+        },
           body: JSON.stringify({
-            roommate: roommateSelected,
+            roommateId,
+            roommate,
             descripcion,
             monto,
           }),
         });
+
         imprimir();
       };
 
