@@ -8,11 +8,32 @@
       "monto": 25000
     },
     {
-      "id": "77531d",
+      "id": "d4a8fd",
       "roommateId": "361aa7",
       "roommate": "Jason Leclercq",
-      "descripcion": "hola",
-      "monto": 25000
+      "descripcion": "comida",
+      "monto": 35000
+    },
+    {
+      "id": "34009d",
+      "roommateId": "214c5f",
+      "roommate": "Rodney Lambert",
+      "descripcion": "comida 2",
+      "monto": 45000
+    },
+    {
+      "id": "a1b3c1",
+      "roommateId": "361aa7",
+      "roommate": "Jason Leclercq",
+      "descripcion": "comida 2",
+      "monto": 45000
+    },
+    {
+      "id": "ea2199",
+      "roommateId": "8c254e",
+      "roommate": "Brennan Knight",
+      "descripcion": "comida 3",
+      "monto": 55000
     }
   ]
 }

@@ -1,7 +1,7 @@
 import express from 'express';
 import { fileURLToPath } from 'url'; // función para convertir URL de archivo a ruta de sistema de archivos
 import { dirname } from 'path'; // funciones para manejo de rutas de archivos y directorios
-import { agregarNuevoRoommate, obtenerRoommates, agregarNuevoGasto } from './roommate.js';
+import { agregarNuevoRoommate, obtenerRoommates, agregarNuevoGasto, obtenerGastos } from './roommate.js';
 const app = express();
 const PORT = 3000;
 
@@ -42,9 +42,19 @@ app.get('/roommates', async (req, res) => {
 app.post('/gasto', async (req, res) => {
     try {
         const { roommateId, roommate, descripcion, monto } = req.body;
-        console.log(roommate);
+        res.status(200).json(agregarNuevoGasto(roommateId, roommate, descripcion, monto)); 
+        
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Error interno del servidor' });        
+    }
+    
+});
 
-        agregarNuevoGasto(roommateId, roommate, descripcion, monto);
+app.get('/gastos', async (req, res) => {
+    try {
+        const gastos = await obtenerGastos();
+        res.status(201).json(gastos);    
     } catch (error) {
         console.error(error);
         res.status(500).json({ error: 'Error interno del servidor' });        

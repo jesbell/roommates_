@@ -53,4 +53,14 @@ async function agregarNuevoGasto(roommateId, roommate, descripcion, monto) {
     }
 }
 
-export { agregarNuevoRoommate, obtenerRoommates, agregarNuevoGasto };
+function obtenerGastos() {
+    try {
+        const data = fs.readFileSync('apis/gastos.json');
+        return JSON.parse(data);
+    } catch (error) {
+        console.log(error);
+        return [];
+    }
+}
+
+export { agregarNuevoRoommate, obtenerRoommates, agregarNuevoGasto, obtenerGastos };

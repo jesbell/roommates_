@@ -156,7 +156,7 @@
       const imprimir = async () => {
         try {
           await getRoommates();
-          //await getGastos();
+          await getGastos();
           $("#roommates").html("");
           $("#roommatesSelect").html("");
           $("#roommatesSelectModal").html("");
@@ -203,25 +203,39 @@
       };
 
       const agregarGasto = async () => {
-        const roommateId = $("#roommatesSelect").val();
-        const roommate = $("#roommatesSelect option:selected").text();
-        const descripcion = $("#descripcion").val();
-        const monto = Number($("#monto").val());
-        console.log(roommate);
-        await fetch("http://localhost:3000/gasto", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json"
-        },
-          body: JSON.stringify({
-            roommateId,
-            roommate,
-            descripcion,
-            monto,
-          }),
-        });
+        try {
+          const roommateId = $("#roommatesSelect").val();
+          const roommate = $("#roommatesSelect option:selected").text();
+          const descripcion = $("#descripcion").val();
+          const monto = Number($("#monto").val());
 
-        imprimir();
+          const response = await fetch("http://localhost:3000/gasto", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json"
+            },
+              body: JSON.stringify({
+              roommateId,
+              roommate,
+              descripcion,
+              monto,
+            }),
+          });
+
+          if(response.ok){
+            imprimir();
+          }
+          else{
+            throw new Error(`Error al agregar el gasto`);
+          }
+          
+        } catch (error) {
+          alert("Error al agregar el gasto:", error);
+          console.error("Error al agregar el gasto:", error);
+        }
+        
+
+        
       };
 
       const deleteGasto = async (id) => {
