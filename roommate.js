@@ -101,6 +101,19 @@ async function borrarGasto(id){
     }  
 }
 
+async function calculandoGastos(idgastos){
+    
+    const gastosJSON = await obtenerGastos();
+    const gastos = gastosJSON.gastos;
+    const gastoEncontrado = gastos.find(gasto => gasto.id === idgastos);
+
+    const roommatesJSON = await obtenerRoommates();
+    const roommates = roommatesJSON.roommates;
+    // me dio perezaaa
+
+
+}
+
 
 export { 
     agregarNuevoRoommate, 
