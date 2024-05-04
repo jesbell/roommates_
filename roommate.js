@@ -48,8 +48,8 @@ async function agregarNuevoGasto(roommateId, roommate, descripcion, monto) {
         fs.writeFileSync('apis/gastos.json', JSON.stringify(gastosJSON, null, 2)); 
         return nuevoGasto;
     } catch (error) {
-        console.error('Error al agregar nuevo roommate:', error);
-        throw new Error('Error al obtener nuevo roommate:', error);
+        console.error('Error al agregar nuevo gasto:', error);
+        throw new Error('Error al obtener nuevo gasto');
     }
 }
 
@@ -63,4 +63,49 @@ function obtenerGastos() {
     }
 }
 
-export { agregarNuevoRoommate, obtenerRoommates, agregarNuevoGasto, obtenerGastos };
+async function actualizarGasto(id, roommate, descripcion, monto) {
+    try {
+        const gastosJSON = obtenerGastos();
+        const gastos = gastosJSON.gastos;
+        const gastoEncontrado = gastos.find(gasto => gasto.id === id);
+
+        if(gastoEncontrado){
+            // Actualizar los campos del gasto
+            gastoEncontrado.roommate = roommate;
+            gastoEncontrado.descripcion = descripcion;
+            gastoEncontrado.monto = monto;
+        }
+        else{
+            throw new Error('No se encontró el gasto con el ID especificado');
+        }
+
+        fs.writeFileSync('apis/gastos.json', JSON.stringify(gastosJSON, null, 2));
+        return gastoEncontrado;
+        
+    } catch (error) {
+        console.error('Error al actualizar gasto:', error);
+        throw new Error(error);
+    }
+}
+
+async function borrarGasto(id){
+    try {
+        const gastosJSON = await obtenerGastos();
+        let gastos = gastosJSON.gastos;
+        gastos = gastos.filter((gasto) => gasto.id !== id);
+        fs.writeFileSync('apis/gastos.json', JSON.stringify({ gastos }, null, 2)); 
+        
+    } catch (error) {
+        console.error('Error al eliminar gasto:', error);
+        throw new Error(error);
+    }  
+}
+
+
+export { 
+    agregarNuevoRoommate, 
+    obtenerRoommates, 
+    agregarNuevoGasto, 
+    obtenerGastos, 
+    actualizarGasto,
+    borrarGasto };

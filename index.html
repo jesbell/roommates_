@@ -223,6 +223,9 @@
           });
 
           if(response.ok){
+            $("#roommatesSelect").val(""); // Limpiar el campo de selección
+            $("#descripcion").val(""); // Limpiar el campo de descripción
+            $("#monto").val(""); // Limpiar el campo de monto
             imprimir();
           }
           else{
@@ -251,6 +254,9 @@
         const monto = Number($("#montoModal").val());
         await fetch("http://localhost:3000/gasto?id=" + gastoEditing, {
           method: "PUT",
+          headers: {
+              "Content-Type": "application/json"
+            },
           body: JSON.stringify({
             roommate: roommateSelected,
             descripcion,
@@ -265,7 +271,7 @@
         gastoEditing = id;
         const { roommate, descripcion, monto } = gastos.find((g) => g.id == id);
         $("#roommatesSelectModal").val(roommate);
-        $("#descripcionModal").html(descripcion);
+        $("#descripcionModal").val(descripcion);
         $("#montoModal").val(monto);
       };
 

@@ -1,39 +1,18 @@
 {
   "gastos": [
     {
-      "id": "5c6c7d",
-      "roommateId": "214c5f",
-      "roommate": "Rodney Lambert",
-      "descripcion": "hola",
-      "monto": 25000
-    },
-    {
-      "id": "d4a8fd",
-      "roommateId": "361aa7",
-      "roommate": "Jason Leclercq",
-      "descripcion": "comida",
-      "monto": 35000
-    },
-    {
       "id": "34009d",
       "roommateId": "214c5f",
       "roommate": "Rodney Lambert",
-      "descripcion": "comida 2",
+      "descripcion": "Limpieza",
       "monto": 45000
     },
     {
-      "id": "a1b3c1",
-      "roommateId": "361aa7",
-      "roommate": "Jason Leclercq",
-      "descripcion": "comida 2",
-      "monto": 45000
-    },
-    {
-      "id": "ea2199",
-      "roommateId": "8c254e",
-      "roommate": "Brennan Knight",
-      "descripcion": "comida 3",
-      "monto": 55000
+      "id": "00ee2f",
+      "roommateId": "1f826c",
+      "roommate": "June Jackson",
+      "descripcion": "comida 100",
+      "monto": 25000
     }
   ]
 }
