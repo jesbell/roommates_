@@ -6,12 +6,12 @@ Este desafío es parte del curso de Desafio Latam, Desarrollo de aplicaciones Fu
 En esta prueba deberás crear un servidor con Node que sirva una interfaz HTML se tiene a disposición en el Apoyo Desafío - Roommates y cuya temática está basada en el registro de gastos entre roommates. 
 
 Se deberá servir una API REST que permita hacer lo siguiente:
-● Almacenar roommates nuevos ocupando random user.
-● Devolver todos los roommates almacenados.
-● Registrar nuevos gastos.
-● Devolver el historial de gastos registrados.
-● Modificar la información correspondiente a un gasto.
-● Eliminar gastos del historial.
+- Almacenar roommates nuevos ocupando random user.
+- Devolver todos los roommates almacenados.
+- Registrar nuevos gastos.
+- Devolver el historial de gastos registrados.
+- Modificar la información correspondiente a un gasto.
+- Eliminar gastos del historial.
 
 # Visuales
 
