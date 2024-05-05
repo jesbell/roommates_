@@ -47,7 +47,7 @@ async function agregarNuevoGasto(roommateId, roommate, descripcion, monto) {
         gastos.push(nuevoGasto);
         fs.writeFileSync('apis/gastos.json', JSON.stringify(gastosJSON, null, 2));
         console.log(nuevoGasto.id);
-        await calculandoGastos(nuevoGasto.id);
+        await calculandoGastos(nuevoGasto.id, 0, false);
         return nuevoGasto;
     } catch (error) {
         console.error('Error al agregar nuevo gasto:', error);
@@ -70,6 +70,8 @@ async function actualizarGasto(id, roommate, descripcion, monto) {
         const gastosJSON = obtenerGastos();
         const gastos = gastosJSON.gastos;
         const gastoEncontrado = gastos.find(gasto => gasto.id === id);
+        // guardando monto anterior
+        const montoAnterior = gastoEncontrado.monto;
 
         if(gastoEncontrado){
             // Actualizar los campos del gasto
@@ -82,6 +84,9 @@ async function actualizarGasto(id, roommate, descripcion, monto) {
         }
 
         fs.writeFileSync('apis/gastos.json', JSON.stringify(gastosJSON, null, 2));
+        if(gastoEncontrado.monto !== montoAnterior){
+            await calculandoGastos(gastoEncontrado.id, montoAnterior, false);
+        }
         return gastoEncontrado;
         
     } catch (error) {
@@ -95,6 +100,7 @@ async function borrarGasto(id){
         const gastosJSON = await obtenerGastos();
         let gastos = gastosJSON.gastos;
         gastos = gastos.filter((gasto) => gasto.id !== id);
+        await calculandoGastos(id, 0, true);
         fs.writeFileSync('apis/gastos.json', JSON.stringify({ gastos }, null, 2)); 
         
     } catch (error) {
@@ -103,7 +109,7 @@ async function borrarGasto(id){
     }  
 }
 
-async function calculandoGastos(idgastos){
+async function calculandoGastos(idgastos, montoAnterior, eliminado){
     
     try {
         // Buscamos el gasto agregado, actualizado o a eliminar.
@@ -118,18 +124,44 @@ async function calculandoGastos(idgastos){
         // Contamos la cantidad de roommates
         const longitudRoommates = roommates.length;
 
-        // repartimos el monto entre los roommates (para nuestro debe y recibe)
+        // repartimos el (nuevo) monto entre los roommates
         const montoPorPersona  = gastoEncontrado.monto/longitudRoommates;
 
-        // recorremos roommates para cambiar los datos según corresponda
-        roommates.forEach((r) => {
-            if(r.id !== gastoEncontrado.roommateId){
-                r.debe += montoPorPersona ;
-            }
-            else{
-                r.recibe += montoPorPersona ;
-            }    
-        });  
+        if(montoAnterior > 0){
+            const montoPorPersonaAnterior  = montoAnterior/longitudRoommates;
+            roommates.forEach((r) => {
+                if(r.id !== gastoEncontrado.roommateId){
+                    r.debe -= montoPorPersonaAnterior;
+                    r.debe += montoPorPersona;
+                }
+                else{
+                    r.recibe -= montoPorPersonaAnterior;
+                    r.recibe += montoPorPersona ;
+                }    
+            });
+        }
+        else if(eliminado){
+            roommates.forEach((r) => {
+                if(r.id !== gastoEncontrado.roommateId){
+                    r.debe -= montoPorPersona ;
+                }
+                else{
+                    r.recibe -= montoPorPersona ;
+                }    
+            });
+        }
+        else{
+            // recorremos roommates para cambiar los datos según corresponda
+            roommates.forEach((r) => {
+                if(r.id !== gastoEncontrado.roommateId){
+                    r.debe += montoPorPersona ;
+                }
+                else{
+                    r.recibe += montoPorPersona ;
+                }    
+            });
+
+        }
         const nuevoRoommatesJSON = { roommates };
         fs.writeFileSync('apis/roommates.json', JSON.stringify(nuevoRoommatesJSON, null, 2));
 

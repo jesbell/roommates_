@@ -1,18 +1,18 @@
 {
   "gastos": [
     {
-      "id": "e5b027",
-      "roommateId": "1f826c",
-      "roommate": "June Jackson",
-      "descripcion": "werwr",
-      "monto": 40000
-    },
-    {
       "id": "4606b7",
       "roommateId": "8c5135",
       "roommate": "Paul Leclerc",
       "descripcion": "limpieza",
-      "monto": 80000
+      "monto": 100000
+    },
+    {
+      "id": "4e3b98",
+      "roommateId": "361aa7",
+      "roommate": "Jason Leclercq",
+      "descripcion": "luz",
+      "monto": 20000
     }
   ]
 }

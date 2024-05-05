@@ -9,20 +9,20 @@
     {
       "id": "361aa7",
       "nombre": "Jason Leclercq",
-      "debe": 30000,
-      "recibe": 0
+      "debe": 25000,
+      "recibe": 5000
     },
     {
       "id": "8c5135",
       "nombre": "Paul Leclerc",
-      "debe": 10000,
-      "recibe": 20000
+      "debe": 5000,
+      "recibe": 25000
     },
     {
       "id": "1f826c",
       "nombre": "June Jackson",
-      "debe": 20000,
-      "recibe": 10000
+      "debe": 30000,
+      "recibe": 0
     }
   ]
 }
