@@ -109,8 +109,11 @@ async function borrarGasto(id){
     }  
 }
 
+// función que modifica el debe y recibe de los roommates 
+// idgastos es para indicarle a la función cual id de gastos buscar.
+// montoAnterior nos indica si el monto fue modificado
+// eliminado: indica si el gasto será eliminado o no
 async function calculandoGastos(idgastos, montoAnterior, eliminado){
-    
     try {
         // Buscamos el gasto agregado, actualizado o a eliminar.
         const gastosJSON = await obtenerGastos();
@@ -128,6 +131,8 @@ async function calculandoGastos(idgastos, montoAnterior, eliminado){
         const montoPorPersona  = gastoEncontrado.monto/longitudRoommates;
 
         if(montoAnterior > 0){
+            // Si el monto fue modificado: Se elimina (resta) el monto anterior,
+            // y se suma el nuevo monto (recibe y debe)
             const montoPorPersonaAnterior  = montoAnterior/longitudRoommates;
             roommates.forEach((r) => {
                 if(r.id !== gastoEncontrado.roommateId){
@@ -141,6 +146,7 @@ async function calculandoGastos(idgastos, montoAnterior, eliminado){
             });
         }
         else if(eliminado){
+            // Si se elimina un gasto, se elimina los montos que debe y recibe los roommates
             roommates.forEach((r) => {
                 if(r.id !== gastoEncontrado.roommateId){
                     r.debe -= montoPorPersona ;
@@ -151,7 +157,8 @@ async function calculandoGastos(idgastos, montoAnterior, eliminado){
             });
         }
         else{
-            // recorremos roommates para cambiar los datos según corresponda
+            // Si solo se a agregado un nuevo monto,
+            // Se agrega el monto por persona según corresponda
             roommates.forEach((r) => {
                 if(r.id !== gastoEncontrado.roommateId){
                     r.debe += montoPorPersona ;
@@ -162,6 +169,8 @@ async function calculandoGastos(idgastos, montoAnterior, eliminado){
             });
 
         }
+
+        // Actualizamos roommates.json con los nuevos datos.
         const nuevoRoommatesJSON = { roommates };
         fs.writeFileSync('apis/roommates.json', JSON.stringify(nuevoRoommatesJSON, null, 2));
 
