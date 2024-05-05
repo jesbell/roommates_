@@ -3,26 +3,32 @@
     {
       "id": "214c5f",
       "nombre": "Rodney Lambert",
-      "debe": 30000,
+      "debe": 16000,
       "recibe": 0
     },
     {
       "id": "361aa7",
       "nombre": "Jason Leclercq",
-      "debe": 25000,
-      "recibe": 5000
+      "debe": 16000,
+      "recibe": 0
     },
     {
       "id": "8c5135",
       "nombre": "Paul Leclerc",
-      "debe": 5000,
-      "recibe": 25000
+      "debe": 4000,
+      "recibe": 12000
     },
     {
       "id": "1f826c",
       "nombre": "June Jackson",
-      "debe": 30000,
+      "debe": 16000,
       "recibe": 0
+    },
+    {
+      "id": "774f49",
+      "nombre": "Adam Harcourt",
+      "debe": 12000,
+      "recibe": 4000
     }
   ]
 }

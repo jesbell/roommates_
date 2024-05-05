@@ -1,0 +1,18 @@
+{
+  "gastos": [
+    {
+      "id": "34009d",
+      "roommateId": "214c5f",
+      "roommate": "Rodney Lambert",
+      "descripcion": "comida 2",
+      "monto": 45000
+    },
+    {
+      "id": "a1b3c1",
+      "roommateId": "361aa7",
+      "roommate": "Jason Leclercq",
+      "descripcion": "comida 4",
+      "monto": 45000
+    }
+  ]
+}

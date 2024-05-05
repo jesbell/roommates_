@@ -1,18 +1,18 @@
 {
   "gastos": [
     {
-      "id": "4606b7",
-      "roommateId": "8c5135",
-      "roommate": "Paul Leclerc",
-      "descripcion": "limpieza",
-      "monto": 100000
+      "id": "87f102",
+      "roommateId": "774f49",
+      "roommate": "Adam Harcourt",
+      "descripcion": "Limpieza",
+      "monto": 20000
     },
     {
-      "id": "4e3b98",
-      "roommateId": "361aa7",
-      "roommate": "Jason Leclercq",
-      "descripcion": "luz",
-      "monto": 20000
+      "id": "ba3d5c",
+      "roommateId": "8c5135",
+      "roommate": "Paul Leclerc",
+      "descripcion": "Comida",
+      "monto": 60000
     }
   ]
 }
