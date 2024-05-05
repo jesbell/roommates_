@@ -45,7 +45,9 @@ async function agregarNuevoGasto(roommateId, roommate, descripcion, monto) {
         const gastosJSON = JSON.parse(fs.readFileSync('apis/gastos.json', "utf8"));
         const gastos = gastosJSON.gastos;
         gastos.push(nuevoGasto);
-        fs.writeFileSync('apis/gastos.json', JSON.stringify(gastosJSON, null, 2)); 
+        fs.writeFileSync('apis/gastos.json', JSON.stringify(gastosJSON, null, 2));
+        console.log(nuevoGasto.id);
+        await calculandoGastos(nuevoGasto.id);
         return nuevoGasto;
     } catch (error) {
         console.error('Error al agregar nuevo gasto:', error);
@@ -103,15 +105,39 @@ async function borrarGasto(id){
 
 async function calculandoGastos(idgastos){
     
-    const gastosJSON = await obtenerGastos();
-    const gastos = gastosJSON.gastos;
-    const gastoEncontrado = gastos.find(gasto => gasto.id === idgastos);
+    try {
+        // Buscamos el gasto agregado, actualizado o a eliminar.
+        const gastosJSON = await obtenerGastos();
+        const gastos = gastosJSON.gastos;
+        const gastoEncontrado = gastos.find(gasto => gasto.id === idgastos);
 
-    const roommatesJSON = await obtenerRoommates();
-    const roommates = roommatesJSON.roommates;
-    // me dio perezaaa
+        // Traemos a todos los roommates existentes
+        const roommatesJSON = await obtenerRoommates();
+        const roommates = roommatesJSON.roommates;
 
+        // Contamos la cantidad de roommates
+        const longitudRoommates = roommates.length;
 
+        // repartimos el monto entre los roommates (para nuestro debe y recibe)
+        const montoPorPersona  = gastoEncontrado.monto/longitudRoommates;
+
+        // recorremos roommates para cambiar los datos según corresponda
+        roommates.forEach((r) => {
+            if(r.id !== gastoEncontrado.roommateId){
+                r.debe += montoPorPersona ;
+            }
+            else{
+                r.recibe += montoPorPersona ;
+            }    
+        });  
+        const nuevoRoommatesJSON = { roommates };
+        fs.writeFileSync('apis/roommates.json', JSON.stringify(nuevoRoommatesJSON, null, 2));
+
+    } catch (error) {
+        console.error('Error al calcular gastos:', error);
+        throw new Error(error);
+    }
+    
 }
 
 
